@@ -2,14 +2,12 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const isAuthorized = require('../middleware/isAuthorized')
-const CLIENT_URI_SUCCESS = "http://localhost:3000/dashboard"
-const CLIENT_URI_FAILED = "http://localhost:3000/forbidden"
 
 router.get("/", passport.authenticate('discord'))
 
 router.get("/redirect", passport.authenticate('discord', {
-    successRedirect: CLIENT_URI_SUCCESS,
-    failureRedirect: CLIENT_URI_FAILED,
+    successRedirect: process.env.CLIENT_URI + "/dashboard",
+    failureRedirect: process.env.CLIENT_URI + "/forbidden"
 }), (req, res) => {
     res.send(req.user)
 })
@@ -35,6 +33,7 @@ router.get("/user", isAuthorized, (req, res) => {
 
 router.get("/check", (req, res) => {
     if (req.user) {
+        console.log("checking user")
         res.send(true)
     }
     else {

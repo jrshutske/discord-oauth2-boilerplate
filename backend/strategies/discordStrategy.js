@@ -13,6 +13,10 @@ passport.deserializeUser(async (id, done)=>{
     }
 })
 
+console.log(process.env.CLIENT_ID)
+console.log(process.env.CLIENT_SECRET)
+console.log(process.env.CLIENT_REDIRECT)
+
 passport.use(new DiscordStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,

@@ -1,4 +1,4 @@
-const post = async (url = '', data = {}) => {
+export const post = async (url = '', data = {}) => {
     const response = await fetch(url, {
       method: 'POST',
       mode: 'cors',
@@ -12,8 +12,8 @@ const post = async (url = '', data = {}) => {
     return response.json();
 }
 
-const get = async (url = '') => {
-    const response = await fetch(url, {
+export const get = async (url = '') => {
+    const response = await fetch(`/api${url}`, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -23,9 +23,4 @@ const get = async (url = '') => {
       },
     });
     return response.json();
-}
-
-module.exports = {
-    post,
-    get
 }
