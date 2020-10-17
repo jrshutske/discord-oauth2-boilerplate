@@ -6,7 +6,7 @@ const isAuthorized = require('../middleware/isAuthorized')
 router.get("/", passport.authenticate('discord'))
 
 router.get("/redirect", passport.authenticate('discord', {
-    successRedirect: process.env.CLIENT_URI + "/dashboard",
+    successRedirect: process.env.CLIENT_URI,
     failureRedirect: process.env.CLIENT_URI + "/forbidden"
 }), (req, res) => {
     res.send(req.user)
@@ -24,7 +24,8 @@ router.get("/logout", (req, res) => {
 
 router.get("/user", isAuthorized, (req, res) => {
     if (req.user) {
-        res.send(req.user)
+        console.debug(req.user)
+        res.send(JSON.stringify(req.user))
     }
     else {
         res.send(null)
