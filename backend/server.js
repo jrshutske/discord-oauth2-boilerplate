@@ -18,18 +18,11 @@ var corsOptions = {
 }
 
 app.use(cors(corsOptions))
-// app.use(function(req, res, next) {
-//   res.setHeader("Access-Control-Allow-Origin", "https://discord-oauth2-client.herokuapp.com");
-//   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Credentials");
-//   res.setHeader('Access-Control-Allow-Credentials', true);
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-//   next();
-// }); this works but we are going to make it prettier
 
-app.enable("trust proxy"); // allows passport to use https
+app.enable("trust proxy");
 
 database.then(() => {
-  console.log("Mongoose connected");
+  console.log("Mongoose connected.");
 });
 
 app.use(session({

@@ -12,10 +12,11 @@ router.get("/redirect", passport.authenticate('discord', {
     res.send(req.user)
 })
 
-router.get("/logout", (req, res) => {
+router.post("/logout", (req, res) => {
     if (req.user) {
+        console.log("Logging out user:", req.user)
         req.logout()
-        res.redirect("/")
+        res.send(200, JSON.stringify({}))
     }
     else {
         res.redirect("/")
@@ -28,7 +29,7 @@ router.get("/user", isAuthorized, (req, res) => {
         res.send(JSON.stringify(req.user))
     }
     else {
-        res.send(null)
+        res.send(401, "No current user authenticated")
     }
 })
 

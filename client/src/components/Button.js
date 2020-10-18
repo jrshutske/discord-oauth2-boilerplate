@@ -4,23 +4,23 @@ import Button from '@material-ui/core/Button';
 
 const useButtonStyles = makeStyles(theme => ({
   root: {
-   height:"3.9em",
+    margin: theme.spacing(3, 0, 2),
   },
 }));
 
-export default function ContainedButtons(props) {
-  const { text, onClick, disabled, icon } = props;
+export default function ContainedButton(props) {
+  const { children, onClick, disabled, fullWidth, variant, icon } = props;
   const classes = useButtonStyles();
 
   return (
-      <Button 
-        classes={classes} 
-        variant="contained" 
+      <Button
         color="primary"
-        onClick={onClick}
         disabled={disabled}
-      >
-        {text}
+        fullWidth={fullWidth}
+        classes={classes} 
+        variant={variant || "contained"}
+        onClick={onClick}
+      >{children}
       </Button>
   );
 }
