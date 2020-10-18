@@ -7,9 +7,9 @@ import PaletteIcon from '@material-ui/icons/Palette';
 import BrushIcon from '@material-ui/icons/Brush';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
-import { AppContext } from '../App'
+import { AppContext } from '../App';
 
-const useStyles = makeStyles((theme, thing) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: 380,
     transform: 'translateZ(0px)',
@@ -29,9 +29,9 @@ const actions = [
 ];
 
 export default function ThemePicker() {
-  const classes = useStyles("green");
+  const classes = useStyles('green');
   const [open, setOpen] = React.useState(false);
-  const { themeSelector, setThemeSelector } = useContext(AppContext)
+  const { themeSelector, setThemeSelector } = useContext(AppContext);
 
   const handleOpen = () => {
     setOpen(true);
@@ -47,25 +47,23 @@ export default function ThemePicker() {
   };
 
   return (
-      <SpeedDial
-        ariaLabel="SpeedDial openIcon example"
-        className={classes.speedDial}
-        icon={<SpeedDialIcon icon={<PaletteIcon />} openIcon={<BrushIcon />} />}
-        onClose={handleClose}
-        onOpen={handleOpen}
-        open={open}
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            disabled={themeSelector === action.name}
-            key={action.name}
-            icon={action.icon}
-            // open={false}
-            // tooltipOpen={false}
-            tooltipTitle={action.name}
-            onClick={()=>chooseTheme(action.name)}
-          />
-        ))}
-      </SpeedDial>
+    <SpeedDial
+      ariaLabel="SpeedDial openIcon example"
+      className={classes.speedDial}
+      icon={<SpeedDialIcon icon={<PaletteIcon />} openIcon={<BrushIcon />} />}
+      onClose={handleClose}
+      onOpen={handleOpen}
+      open={open}
+    >
+      {actions.map((action) => (
+        <SpeedDialAction
+          disabled={themeSelector === action.name}
+          key={action.name}
+          icon={action.icon}
+          tooltipTitle={action.name}
+          onClick={() => chooseTheme(action.name)}
+        />
+      ))}
+    </SpeedDial>
   );
 }

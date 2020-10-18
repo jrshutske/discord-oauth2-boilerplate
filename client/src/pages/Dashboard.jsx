@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,21 +10,20 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems } from '../components/ListItems';
+import Paper from '@material-ui/core/Paper';
+import MainListItems from '../components/ListItems';
 import Copyright from '../components/Copyright';
-import Paper from '@material-ui/core/Paper'
+import { AppContext } from '../App';
 
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    width:"100%"
+    width: '100%',
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -61,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   drawerPaper: {
-    zIndex:1,
+    zIndex: 1,
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth,
@@ -88,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-      width:"100%",
+    width: '100%',
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
@@ -99,12 +98,13 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   fixedHeight: {
-    height: "100vh",
+    height: '100vh',
   },
 }));
 
 export default function Dashboard() {
   const classes = useStyles();
+  const { user } = useContext(AppContext);
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -128,9 +128,15 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            {"Dashboard"}
+            Dashboard
           </Typography>
-          <span>hi</span>
+          <h4 style={{ paddingRight: '1em', fontWeight: '' }}>{user.username}</h4>
+          <img
+            width="50px"
+            style={{ borderRadius: '5em' }}
+            alt=""
+            src={`https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png?size=128`}
+          />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -146,14 +152,15 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>
+          <MainListItems />
+        </List>
         <Divider />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container  className={classes.container}>
-        <Paper>
-        </Paper>
+        <Container className={classes.container}>
+          <Paper />
           <Box pt={2}>
             <Copyright />
           </Box>
