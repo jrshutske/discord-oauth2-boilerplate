@@ -10,7 +10,8 @@ export const post = async (url = '', data = {}) => {
       body: JSON.stringify(data),
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': `https://discord-oauth2-api.herokuapp.com`
 			  }
     });
     return response.json();
@@ -20,14 +21,16 @@ export const get = async (url = '') => {
     url = process.env.NODE_ENV === "production"
       ? `https://discord-oauth2-api.herokuapp.com/api${url}`
       : `/api${url}`
+    console.debug(url)
     let response = await fetch(url, {
       method: 'GET',
-			mode: 'cors',
+      mode: 'cors',
+      credentials: 'include',
 			cache: 'no-cache',
-			credentials: 'include', 
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
+        'Origin': 'https://discord-oauth2-client.herokuapp.com'
 			  }
     })
     return response.json();

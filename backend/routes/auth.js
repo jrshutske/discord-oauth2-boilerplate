@@ -22,7 +22,8 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.get('/user', isAuthorized, (req, res) => {
+router.get('/user', (req, res) => {
+  console.log(req.user)
   if (req.user) {
     console.debug(req.user);
     res.send(JSON.stringify(req.user));

@@ -131,12 +131,14 @@ export default function Dashboard() {
             Dashboard
           </Typography>
           <h4 style={{ paddingRight: '1em', fontWeight: '' }}>{user.username}</h4>
-          <img
+          {user && (
+            <img
             width="50px"
             style={{ borderRadius: '5em' }}
             alt=""
             src={`https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png?size=128`}
           />
+          )}
         </Toolbar>
       </AppBar>
       <Drawer

@@ -4,7 +4,7 @@ const isAuthorized = (req, res, next) => {
     next();
   } else {
     console.log('User is not logged in.');
-    res.redirect(`${process.env.CLIENT_URI}/`);
+    res.send(401);
   }
 };
 
